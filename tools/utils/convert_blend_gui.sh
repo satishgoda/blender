@@ -13,20 +13,8 @@ if [ ! -f "$VENV_PYTHON" ]; then
     exit 1
 fi
 
-# Use AppleScript to open a file picker dialog
-# We use 'try' block to handle the "User canceled" error gracefully
-FILE=$(osascript -e 'try' \
-                 -e 'POSIX path of (choose file with prompt "Select .blend file" of type {"blend"})' \
-                 -e 'on error' \
-                 -e 'return ""' \
-                 -e 'end try')
+GUI_SCRIPT="$SCRIPT_DIR/blend2json_gui.py"
 
-if [ -z "$FILE" ]; then
-    echo "No file selected."
-    exit 0
-fi
+# Run the GUI script, passing any arguments (like a file path)
+"$VENV_PYTHON" "$GUI_SCRIPT" "$@"
 
-echo "Selected file: $FILE"
-echo "Running conversion..."
-
-"$VENV_PYTHON" "$CONVERTER_SCRIPT" "$FILE"
