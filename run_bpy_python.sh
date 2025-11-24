@@ -3,9 +3,10 @@ set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
 VENV_PYTHON="$REPO_ROOT/.venv/bin/python"
-if [[ ! -x "$VENV_PYTHON" ]]; then
-  echo "Python virtual environment not found at $REPO_ROOT/.venv" >&2
-  echo "Run: /opt/homebrew/bin/python3.11 -m venv .venv" >&2
+VENV_JUPYTER="$REPO_ROOT/.venv/bin/jupyter"
+if [[ ! -x "$VENV_PYTHON" || ! -x "$VENV_JUPYTER" ]]; then
+  echo "Python virtual environment or Jupyter binary not found in $REPO_ROOT/.venv" >&2
+  echo "Run: /opt/homebrew/bin/python3.11 -m venv .venv && ./.venv/bin/pip install jupyter" >&2
   exit 1
 fi
 B3D_BPY_PREFIX_DEFAULT="/Users/sgoda/dev/b3d/blender_build/install"
@@ -52,4 +53,4 @@ else
   export PYTHONPATH="$joined_paths"
 fi
 
-exec "$VENV_PYTHON" "$@"
+exec "$VENV_JUPYTER" "$@"
