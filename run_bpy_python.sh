@@ -3,9 +3,10 @@ set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "$0")" && pwd)"
 VENV_PYTHON="$REPO_ROOT/.venv/bin/python"
+VENV_IPYTHON="$REPO_ROOT/.venv/bin/ipython"
 VENV_JUPYTER="$REPO_ROOT/.venv/bin/jupyter"
-if [[ ! -x "$VENV_PYTHON" || ! -x "$VENV_JUPYTER" ]]; then
-  echo "Python virtual environment or Jupyter binary not found in $REPO_ROOT/.venv" >&2
+if [[ ! -x "$VENV_PYTHON" || ! -x "$VENV_IPYTHON" || ! -x "$VENV_JUPYTER" ]]; then
+  echo "Python virtual environment, IPython, or Jupyter binary not found in $REPO_ROOT/.venv" >&2
   echo "Run: /opt/homebrew/bin/python3.11 -m venv .venv && ./.venv/bin/pip install jupyter" >&2
   exit 1
 fi
@@ -53,4 +54,12 @@ else
   export PYTHONPATH="$joined_paths"
 fi
 
-exec "$VENV_JUPYTER" "$@"
+if [[ $# -gt 0 ]]; then
+  case "$1" in
+    qtconsole|notebook|lab|labextension|console|kernel|kernelspec|nbconvert|nbclassic|server|run)
+      exec "$VENV_JUPYTER" "$@"
+      ;;
+  esac
+fi
+
+exec "$VENV_IPYTHON" "$@"
