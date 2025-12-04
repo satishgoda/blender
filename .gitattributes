@@ -104,3 +104,4 @@
 scripts/modules/_bpy_internal/assets/remote_library_listing/*_openapi.py linguist-generated=true
 
 study/source/blender/depsgraph/images/data_processing_pipeline.png -filter
+study/tutorials/geoNodes_meshIsland_a001_b001_v002-ss2.png -filter
