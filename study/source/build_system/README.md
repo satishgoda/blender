@@ -10,3 +10,7 @@ make BUILD_DIR=/Users/sgoda/dev/b3d/blender_build \
      NPROCS=16 \
      ninja release
 ```
+
+```
+PYTHONPATH=./.venv/lib/python3.11/site-packages WORKAREA_PATH=/Users/sgoda/Desktop/workarea51/ /Users/sgoda/dev/b3d/blender_build/install/Blender.app/Contents/MacOS/Blender --python-use-system-env
+```
