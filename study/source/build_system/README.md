@@ -1,5 +1,19 @@
 
 ```
+ git checkout main
+ git pull upstream main
+ make update
+ git checkout study
+ git remote -v
+ git rebase main
+ git checkout main
+ git push public
+ git checkout study
+ git rebase main
+ git push --force
+```
+
+```
 make update
 ```
 
